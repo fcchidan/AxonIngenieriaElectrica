@@ -1,0 +1,31 @@
+{% load humanize %}
+{% load custom_filters %}
+<div class="buscar-contenedor">
+    <form method="GET" action="{% url 'buscar_productos' %}" class="search-form">
+        <input type="text" name="q" placeholder="Buscar..." value="{{ query }}">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="resultados">
+        {% if mensaje %}
+            <p>{{ mensaje }}</p>
+        {% else %}
+            {% if query %}
+                <h2>Resultados para "{{ query }}":</h2>
+                {% if resultados %}
+                    <ul>
+                        {% for producto in resultados %}
+                            <li>
+                                <a href="{% url 'producto' producto.id %}">{{ producto.titulo }}</a>
+                                <p>{{ producto.descripcion }}</p>
+                                <strong>Precio: ${{ producto.precio|floatformat:"0"|add_decimal_separator }}</strong>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No se encontraron resultados.</p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+

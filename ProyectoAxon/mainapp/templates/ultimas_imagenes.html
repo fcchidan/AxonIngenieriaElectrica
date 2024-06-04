@@ -1,0 +1,15 @@
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+
+<h1>ÚLTIMOS PRODUCTOS</h1>
+<div class="productos-container">
+    {% for producto in ultimos_productos %}
+    <div class="producto">
+        <h2>{{ producto.titulo }}</h2>
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.titulo }}">
+        <p>{{ producto.contenido }}</p>
+        <p>Precio: ${{ producto.precio|floatformat:"0"|add_decimal_separator }}</p>
+    </div>
+    {% endfor %}
+</div>
